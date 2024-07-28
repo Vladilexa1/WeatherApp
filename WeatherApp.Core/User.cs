@@ -12,7 +12,7 @@
         public string Login { get; } = string.Empty;
         public string PasswordHash { get; } = string.Empty;
 
-        public static User Create(int id, string login, string passwordHash)
+        public static User Create(int id, string login, string passwordHash) // TODO: Валидация??
         {
             var user = new User(id, login, passwordHash);
             return user;
