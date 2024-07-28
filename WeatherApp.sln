@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp.API", "WeatherApp\WeatherApp.API.csproj", "{9C4E7517-DC9B-4EC7-8100-89FB2C8C0D20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherApp.API", "WeatherApp\WeatherApp.API.csproj", "{9C4E7517-DC9B-4EC7-8100-89FB2C8C0D20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp.Core", "WeatherApp.Core\WeatherApp.Core.csproj", "{BDA6737E-9917-46D5-884D-565618BE1E85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherApp.Core", "WeatherApp.Core\WeatherApp.Core.csproj", "{BDA6737E-9917-46D5-884D-565618BE1E85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp.DataAccess", "WeatherApp.DataAccess\WeatherApp.DataAccess.csproj", "{BB8DBDCD-1761-4F4D-AD48-173906AA6633}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{BDA6737E-9917-46D5-884D-565618BE1E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDA6737E-9917-46D5-884D-565618BE1E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDA6737E-9917-46D5-884D-565618BE1E85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB8DBDCD-1761-4F4D-AD48-173906AA6633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8DBDCD-1761-4F4D-AD48-173906AA6633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8DBDCD-1761-4F4D-AD48-173906AA6633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8DBDCD-1761-4F4D-AD48-173906AA6633}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
