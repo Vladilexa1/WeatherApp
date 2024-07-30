@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using WeatherApp.DataAccess;
+
 namespace WeatherApp
 {
     public class Program
@@ -6,9 +9,14 @@ namespace WeatherApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
             builder.Services.AddControllers();
-
+            
+            var configuration = builder.Configuration;
+            builder.Services.AddDbContext<WeatherAppDbContext>(options =>
+            {
+                options.UseNpgsql(configuration.GetConnectionString(nameof(WeatherAppDbContext)));
+            });
+            
             var app = builder.Build();
 
             app.UseHttpsRedirection();
