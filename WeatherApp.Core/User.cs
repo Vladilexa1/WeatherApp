@@ -2,9 +2,8 @@
 {
     public class User
     {
-        private User(int id, string login, string passwordHash)
+        private User(string login, string passwordHash)
         {
-            Id = id;
             Login = login;
             PasswordHash = passwordHash;
         }
@@ -12,9 +11,9 @@
         public string Login { get; } = string.Empty;
         public string PasswordHash { get; } = string.Empty;
 
-        public static User Create(int id, string login, string passwordHash) // TODO: Валидация??
+        public static User Create(string login, string passwordHash) // TODO: Валидация?? // Id????
         {
-            var user = new User(id, login, passwordHash);
+            var user = new User(login, passwordHash);
             return user;
         }
     }
