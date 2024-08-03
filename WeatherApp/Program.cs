@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using WeatherApp.API.Endpoints;
 using WeatherApp.Application;
 using WeatherApp.DataAccess;
@@ -26,12 +27,13 @@ namespace WeatherApp
                 options.UseNpgsql(configuration.GetConnectionString(nameof(WeatherAppDbContext)));
             });
 
-
+            builder.Services.Configure<JWTOptions>(configuration.GetSection("JWTOptions"));
+            
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IJWTProvider, JWTProvider>();
             builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
             builder.Services.AddScoped<IUserService, UserService>();
-
+            
             var app = builder.Build();
 
             app.UseHttpsRedirection();
@@ -41,7 +43,8 @@ namespace WeatherApp
             app.UseSwaggerUI();
             app.MapUsersEndpoints();
             app.MapControllers();
-
+            app.UseHttpsRedirection();
+            app.UseCors();
             app.Run();
         }
     }

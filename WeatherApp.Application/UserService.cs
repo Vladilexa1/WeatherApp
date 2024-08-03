@@ -23,7 +23,8 @@ namespace WeatherApp.Application
         {
             var hashedPassword = _passwordHasher.Generate(password);
 
-            var user = User.Create(email, password);
+            var user = User.Create(email, hashedPassword);
+            await _usersRepository.Add(user);
         }
         public async Task<string> Login(string email, string password)
         {
@@ -31,7 +32,7 @@ namespace WeatherApp.Application
 
             var result = _passwordHasher.Verify(password, user.PasswordHash);
 
-            if (result)
+            if (!result)
             {
                 throw new Exception("Failed to login");
             }

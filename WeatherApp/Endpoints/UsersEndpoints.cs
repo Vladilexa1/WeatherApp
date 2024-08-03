@@ -19,7 +19,7 @@ namespace WeatherApp.API.Endpoints
         }
         private static async Task<IResult> Login(string email, string password, IUserService userServices)
         {
-            var token = userServices.Login(email, password);
+            var token = await userServices.Login(email, password);
 
             return Results.Ok(token);
         }
