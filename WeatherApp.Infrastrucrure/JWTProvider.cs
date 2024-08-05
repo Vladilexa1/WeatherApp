@@ -1,12 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using WeatherApp.Core;
 
 namespace WeatherApp.Infrastructure
@@ -21,7 +17,7 @@ namespace WeatherApp.Infrastructure
         }
         public string GenerateToken(User user)
         {
-            Claim[] claims = [new("userId", user.Login)];
+            Claim[] claims = [new("login", user.Login)];
 
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
