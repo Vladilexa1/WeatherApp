@@ -19,13 +19,13 @@ namespace WeatherApp.API.Endpoints
             return Results.Ok();
         }
         private static async Task<IResult> Login(
-            string email, string password, 
+            UserRequest userRequest, 
             IUserService userServices, 
             HttpContext httpContext)
         {
-            var token = await userServices.Login(email, password);
+            var token = await userServices.Login(userRequest.login, userRequest.password);
 
-            httpContext.Response.Cookies.Append("test-cooky", token);// перенести имя в константу
+            httpContext.Response.Cookies.Append("test-cooky", token); // перенести имя в константу
 
             return Results.Ok(token);
         }

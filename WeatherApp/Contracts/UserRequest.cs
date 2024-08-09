@@ -1,6 +1,4 @@
 ﻿namespace WeatherApp.API.Contracts
 {
-    public record UserRequest(string login, string password)
-    {
-    }
+    public record UserRequest(string login, string password) { }
 }
