@@ -16,11 +16,6 @@ namespace WeatherApp.DataAccess.Configuration
             builder
                 .HasMany(x => x.Locations)
                 .WithMany(x => x.Users);
-            builder
-                .HasOne(u => u.Session)
-                .WithOne(s => s.User)
-                .HasForeignKey<UserEntity>(u => u.Id);
-
         }
     }
 }

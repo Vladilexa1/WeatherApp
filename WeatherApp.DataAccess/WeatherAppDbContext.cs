@@ -7,12 +7,10 @@ namespace WeatherApp.DataAccess
     {
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<LocationEntity> Locations { get; set; }
-        public DbSet<SessionEntity> Sessions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
             modelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new SessionEntityConfiguration());
             
             base.OnModelCreating(modelBuilder);
         }
