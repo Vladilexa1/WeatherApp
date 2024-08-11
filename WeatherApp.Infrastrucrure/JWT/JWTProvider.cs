@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using WeatherApp.Core;
 
-namespace WeatherApp.Infrastructure
+namespace WeatherApp.Infrastructure.JWT
 {
     public class JWTProvider : IJWTProvider
     {

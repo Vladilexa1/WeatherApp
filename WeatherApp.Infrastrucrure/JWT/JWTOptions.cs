@@ -1,4 +1,4 @@
-﻿namespace WeatherApp.Infrastructure
+﻿namespace WeatherApp.Infrastructure.JWT
 {
     public class JWTOptions
     {
