@@ -19,7 +19,6 @@ namespace WeatherApp
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
 
             var configuration = builder.Configuration;
             
@@ -29,6 +28,7 @@ namespace WeatherApp
             {
                 options.UseNpgsql(configuration.GetConnectionString(nameof(WeatherAppDbContext)));
             });
+
 
             builder.Services.Configure<JWTOptions>(configuration.GetSection("JWTOptions"));
             builder.Services.Configure<BuildUrlOptions>(configuration.GetSection("BuildUrlOptions"));
@@ -56,7 +56,6 @@ namespace WeatherApp
 
             app.UseSwagger();
             app.UseSwaggerUI();
-            app.MapUsersEndpoints();
             app.MapControllers();
             app.UseHttpsRedirection();
             app.UseCors();
