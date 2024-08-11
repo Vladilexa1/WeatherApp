@@ -7,6 +7,7 @@ using WeatherApp.Application;
 using WeatherApp.DataAccess;
 using WeatherApp.DataAccess.Repositories;
 using WeatherApp.Infrastructure;
+using WeatherApp.Infrastructure.JWT;
 
 namespace WeatherApp
 {

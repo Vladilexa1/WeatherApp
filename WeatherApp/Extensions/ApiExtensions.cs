@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using WeatherApp.Infrastructure;
+using WeatherApp.Infrastructure.JWT;
 
 namespace WeatherApp.API.Extensions
 {
