@@ -14,7 +14,7 @@ namespace WeatherApp.API.Endpoints
             app.MapPost("login", Login);
             return app;
         }
-        private static async Task<IResult> Register(UserRequest userRequest, IUserService userServices)
+        private static async Task<IResult> Register(UserRequest userRequest, IUserService userServices, IOpenWeatherAPIclient openWeatherAPIclient)
         {
             await userServices.Register(userRequest.login, userRequest.password);
             return Results.Ok();
@@ -22,13 +22,14 @@ namespace WeatherApp.API.Endpoints
         private static async Task<IResult> Login(
             UserRequest userRequest, 
             IUserService userServices, 
-            HttpContext httpContext)
+            HttpContext httpContext
+            )
         {
             var token = await userServices.Login(userRequest.login, userRequest.password);
 
             httpContext.Response.Cookies.Append("test-cooky", token); // перенести имя в константу
 
-            return Results.Ok(token);
+            return Results.Ok();
         }
     }
 }

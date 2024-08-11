@@ -45,3 +45,4 @@ namespace WeatherApp.Infrastructure.OpenWeatherAPI
         }
     }
 }
+

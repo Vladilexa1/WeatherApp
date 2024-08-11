@@ -10,6 +10,7 @@ namespace WeatherApp.Infrastructure.JWT
     public class JWTProvider : IJWTProvider
     {
         private readonly JWTOptions _options;
+
         public JWTProvider(IOptions<JWTOptions> options)
         {
             _options = options.Value;
