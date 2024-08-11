@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherApp.Infrastructure.OpenWeatherAPI.Entity
 {
-    public record Weath(int id, string main, string description)
+    public record Weather(int id, string main, string description)
     {
     }
 }
