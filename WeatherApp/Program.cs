@@ -8,6 +8,7 @@ using WeatherApp.DataAccess;
 using WeatherApp.DataAccess.Repositories;
 using WeatherApp.Infrastructure;
 using WeatherApp.Infrastructure.JWT;
+using WeatherApp.Infrastructure.OpenWeatherAPI;
 
 namespace WeatherApp
 {
@@ -30,11 +31,14 @@ namespace WeatherApp
             });
 
             builder.Services.Configure<JWTOptions>(configuration.GetSection("JWTOptions"));
-            
+            builder.Services.Configure<BuildUrlOptions>(configuration.GetSection("BuildUrlOptions"));
+
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IJWTProvider, JWTProvider>();
             builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IBildUrl, BildUrl>();
+            builder.Services.AddScoped<IOpenWeatherAPIclient, OpenWeatherAPIclient>();
             
             var app = builder.Build();
 

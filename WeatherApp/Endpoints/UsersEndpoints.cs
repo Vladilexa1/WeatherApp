@@ -2,6 +2,7 @@
 using WeatherApp.API.Contracts;
 using WeatherApp.Application;
 using WeatherApp.DataAccess.Repositories;
+using WeatherApp.Infrastructure.OpenWeatherAPI;
 
 namespace WeatherApp.API.Endpoints
 {
