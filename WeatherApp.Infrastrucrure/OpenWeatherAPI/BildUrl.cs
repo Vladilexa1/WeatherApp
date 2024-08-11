@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,22 @@ using System.Threading.Tasks;
 
 namespace WeatherApp.Infrastructure.OpenWeatherAPI
 {
-    public static class BildUrl
+    public class BildUrl : IBildUrl
     {
-        private const string URL_OPENWEATHER = "https://api.openweathermap.org/data/2.5/weather?";
-        private const string API_KEY = "7b420c1d27c4ae89ed5c275c79df2a00"; // TODO: спрятать апи кей
-        private const string UNITS = "&units=metric";
-        public static string GetCoordForName(string name) =>
-            $"{URL_OPENWEATHER}q={name}appid={API_KEY}&{UNITS}";
-
+        private const string URL_OPENWEATHER = "https://api.openweathermap.org/data/2.5/";
+        private const string CURRENT = "weather";
+        private const string FORECAST = "forecast";
+        private readonly string API_KEY;
+        private const string UNITS = "metric";
+        private BuildUrlOptions _options;
+        public BildUrl(IOptions<BuildUrlOptions> options)
+        {
+            _options = options.Value;
+            API_KEY = _options.Token;
+        }
+        public string GetCurrentWeatherForName(string name) =>
+            $"{URL_OPENWEATHER}{CURRENT}?q={name}&units={UNITS}&appid={API_KEY}";
+        public string GetForecastForName(string name) =>
+           $"{URL_OPENWEATHER}{FORECAST}?q={name}appid={API_KEY}&{UNITS}";
     }
 }

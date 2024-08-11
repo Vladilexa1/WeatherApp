@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherApp.Infrastructure.OpenWeatherAPI.Entity
 {
-    public record Temp(decimal temp, decimal feelLike, decimal pressure)
+    public record Temp(decimal temp, decimal feels_like, decimal pressure)
     {
     }
 }
