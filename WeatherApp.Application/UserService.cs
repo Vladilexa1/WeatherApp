@@ -9,15 +9,16 @@ namespace WeatherApp.Application
         private readonly IPasswordHasher _passwordHasher;
         private readonly IUserRepository _usersRepository;
         private readonly IJWTProvider _provider;
-
+        private readonly ILocationRepository _locationRepository;
         public UserService(IPasswordHasher passwordHasher,
-                           IUserRepository usersRepository, 
-                           IJWTProvider provider
-                           )
+                           IUserRepository usersRepository,
+                           IJWTProvider provider,
+                           ILocationRepository locationRepository)
         {
             _passwordHasher = passwordHasher;
             _usersRepository = usersRepository;
             _provider = provider;
+            _locationRepository = locationRepository;
         }
         public async Task Register(string email, string password)
         {
@@ -39,6 +40,10 @@ namespace WeatherApp.Application
             var token = _provider.GenerateToken(user);
 
             return token;
+        }
+        public async Task AddLocation(Location location)
+        {
+            await _locationRepository.Add(location);
         }
     }
 }
