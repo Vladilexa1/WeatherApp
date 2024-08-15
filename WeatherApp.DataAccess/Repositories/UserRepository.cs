@@ -34,7 +34,7 @@ namespace WeatherApp.DataAccess.Repositories
                 .FirstOrDefaultAsync(u => u.Login == email)
                 ?? throw new Exception();
 
-            var user = User.Create(userEntity.Login, userEntity.PasswordHash);
+            var user = User.Create(userEntity.Login, userEntity.PasswordHash, userEntity.Id);
 
             return user;
         }
