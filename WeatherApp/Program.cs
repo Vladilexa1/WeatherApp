@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using WeatherApp.API.Endpoints;
+using WeatherApp.API.Extensions;
 using WeatherApp.Application;
 using WeatherApp.DataAccess;
 using WeatherApp.DataAccess.Repositories;
@@ -32,13 +34,14 @@ namespace WeatherApp
 
             builder.Services.Configure<JWTOptions>(configuration.GetSection("JWTOptions"));
             builder.Services.Configure<BuildUrlOptions>(configuration.GetSection("BuildUrlOptions"));
-
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IJWTProvider, JWTProvider>();
             builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IBildUrl, BildUrl>();
             builder.Services.AddScoped<IOpenWeatherAPIclient, OpenWeatherAPIclient>();
+            builder.Services.AddScoped<ILocationRepository, LocationRepository>();
+            ApiExtensions.AddApiAuthentication(builder, configuration.GetSection("JWTOptions"));
             
             var app = builder.Build();
 

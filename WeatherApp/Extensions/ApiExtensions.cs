@@ -6,22 +6,28 @@ using WeatherApp.Infrastructure.JWT;
 
 namespace WeatherApp.API.Extensions
 {
-    public static class ApiExtensions
+    public static class ApiExtensions 
     {
-        public static void AddApiAuthentication(
-            this IServiceCollection services,
-            IOptions<JWTOptions> jwtOptions)
+        public static void AddApiAuthentication(WebApplicationBuilder builder, IConfigurationSection configurationSection)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            JWTOptions jwtOptions = configurationSection.Get<JWTOptions>()?? throw new Exception("Problem configuration");
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
+                    options.RequireHttpsMetadata = true;
+                    options.SaveToken = true;
                     options.TokenValidationParameters = new()
                     {
                         ValidateIssuer = false,
                         ValidateAudience = false,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Value.SecretKey))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
                     };
                     options.Events = new JwtBearerEvents
                     {
@@ -32,7 +38,10 @@ namespace WeatherApp.API.Extensions
                         }
                     };
                 });
-            services.AddAuthorization();
+            builder.Services.AddAuthorization(options =>
+            {
+
+            });
         }
     }
 }

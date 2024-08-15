@@ -14,9 +14,10 @@ namespace WeatherApp.API.Endpoints
             app.MapPost("login", Login);
             return app;
         }
-        private static async Task<IResult> Register(UserRequest userRequest, IUserService userServices, IOpenWeatherAPIclient openWeatherAPIclient)
+        private static async Task<IResult> Register(UserRequest userRequest, IUserService userServices, IBildUrl a)
         {
             await userServices.Register(userRequest.login, userRequest.password);
+            a.GetCurrentWeatherForName("asd");
             return Results.Ok();
         }
         private static async Task<IResult> Login(
