@@ -9,7 +9,7 @@ using WeatherApp.DataAccess.Entitys;
 
 namespace WeatherApp.DataAccess.Repositories
 {
-    public class LocationRepository
+    public class LocationRepository : ILocationRepository
     {
         private readonly WeatherAppDbContext _dbContext;
 
@@ -35,9 +35,9 @@ namespace WeatherApp.DataAccess.Repositories
             var locationEntity = await _dbContext.Locations
                 .FirstOrDefaultAsync(x => x.Id == id) ?? throw new Exception();
 
-            var result = Location.Create(locationEntity.Id, locationEntity.Name, locationEntity.UserId,
+            var result = Location.Create(locationEntity.Name, locationEntity.UserId,
                                          locationEntity.Latitude, locationEntity.Longitude);
-            return result; 
+            return result;
         }
     }
 }
