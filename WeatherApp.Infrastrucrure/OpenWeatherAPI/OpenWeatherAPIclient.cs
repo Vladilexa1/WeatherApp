@@ -23,7 +23,7 @@ namespace WeatherApp.Infrastructure.OpenWeatherAPI
 
             var weather = JsonSerializer.Deserialize<WeatherEntity>(jsonResponse) ?? throw new Exception("Problem bro");
             var result = CurrentWeather.Create
-                (weather.coord.lat, weather.coord.lat, weather.weather[0].main, weather.weather[0].description,
+                (weather.coord.lat, weather.coord.lon, weather.weather[0].main, weather.weather[0].description,
                 weather.main.temp, weather.main.feels_like, weather.main.pressure, weather.wind.speed, weather.wind.deg,
                 weather.sys.country, weather.name
                 );
