@@ -17,7 +17,7 @@ namespace WeatherApp.Infrastructure.JWT
         }
         public string GenerateToken(User user)
         {
-            Claim[] claims = [new("login", user.Login)];
+            Claim[] claims = [new("Id", user.Id.ToString())];
 
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
