@@ -30,21 +30,23 @@ namespace WeatherApp.API.Controllers
             return Ok();
         }
         [Authorize]
-        [HttpPost("addLocation")]
+        [HttpPost("AddLocation")]
         public async Task<ActionResult> AddLokation(LocationContract locationContract, IUserService userServices)
         {
-            var userIdString = User.Claims.FirstOrDefault(c => c.Type == "Id")?.Value;
+            var userIdString = User.Claims.FirstOrDefault(c => c.Type == "Id")?.Value;// DRY
             int.TryParse(userIdString, out int userId);
 
             var location = Location.Create(locationContract.city, userId, locationContract.Latitue, locationContract.Longitude);
-            await userServices.AddLocation(location);
+            await userServices.AddLocation(location, userId);
             return Ok();
         }
         [Authorize]
-        [HttpDelete]
-        public async Task<ActionResult> DeleteLocation(int id, IUserService userServices)
+        [HttpDelete("DeleteLocation")]
+        public async Task<ActionResult> DeleteLocation(int idLocation, IUserService userServices)
         {
-            //TODO
+            var userIdString = User.Claims.FirstOrDefault(c => c.Type == "Id")?.Value;// DRY
+            int.TryParse(userIdString, out int userId);
+            await userServices.DeleteLocation(idLocation, userId);
             return Ok();
         }
     }
