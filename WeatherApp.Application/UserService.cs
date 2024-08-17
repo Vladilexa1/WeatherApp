@@ -41,9 +41,13 @@ namespace WeatherApp.Application
 
             return token;
         }
-        public async Task AddLocation(Location location)
+        public async Task AddLocation(Location location, int userId)
         {
-            await _locationRepository.Add(location);
+            await _locationRepository.Add(location, userId);
+        }
+        public async Task DeleteLocation(int idLocation, int idUser)
+        {
+            await _locationRepository.Delete(idLocation, idUser);
         }
     }
 }
