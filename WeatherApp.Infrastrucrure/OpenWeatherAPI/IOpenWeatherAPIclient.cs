@@ -1,10 +1,11 @@
 ﻿using WeatherApp.Core;
+using WeatherApp.Infrastructure.OpenWeatherAPI.Entity;
 
 namespace WeatherApp.Infrastructure.OpenWeatherAPI
 {
     public interface IOpenWeatherAPIclient
     {
-        Task<Forecast> GetForecastForName(string name);
-        Task<CurrentWeather> GetWeatherForName(string name);
+        Task<ForecastEntity> GetForecastForName(string name);
+        Task<WeatherApp.Core.Weather> GetWeatherForName(string name);
     }
 }
