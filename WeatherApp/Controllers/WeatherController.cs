@@ -11,10 +11,10 @@ namespace WeatherApp.API.Controllers
     public class WeatherController : Controller
     {
         [Authorize]
-        [HttpGet]
-        public async Task<ActionResult> WeatherForName(string city, IOpenWeatherAPIclient openWeatherAPIclient)
+        [HttpGet("SearchLocation")]
+        public async Task<ActionResult> SearchForName(string city, IOpenWeatherAPIclient openWeatherAPIclient)
         {
-            CurrentWeather currentWeather;
+            Weather currentWeather;
             try
             {
                  currentWeather = await openWeatherAPIclient.GetWeatherForName(city);
@@ -25,6 +25,13 @@ namespace WeatherApp.API.Controllers
             }
             
             return Ok(currentWeather);
+        }
+        [Authorize]
+        [HttpGet("Forecast")]
+        public async Task<ActionResult> GetForecast(string city, IOpenWeatherAPIclient openWeatherAPIclient)
+        {
+            var forecast = openWeatherAPIclient.GetForecastForName(city);
+            return Ok(forecast);
         }
     }
 }
