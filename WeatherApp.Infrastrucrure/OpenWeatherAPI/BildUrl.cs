@@ -23,7 +23,7 @@ namespace WeatherApp.Infrastructure.OpenWeatherAPI
         }
         public string GetCurrentWeatherForName(string name) =>
             $"{URL_OPENWEATHER}{CURRENT}?q={name}&units={UNITS}&appid={API_KEY}";
-        public string GetForecastForName(string name) =>
-           $"{URL_OPENWEATHER}{FORECAST}?q={name}&appid={API_KEY}&{UNITS}";
+        public string GetForecastForCoordinates(decimal latitude, decimal longitude) =>
+           $"{URL_OPENWEATHER}{FORECAST}?lat={latitude}&lon={longitude}&appid={API_KEY}&{UNITS}";
     }
 }

@@ -1,11 +1,10 @@
 ﻿using WeatherApp.Core;
-using WeatherApp.Infrastructure.OpenWeatherAPI.Entity;
 
 namespace WeatherApp.Infrastructure.OpenWeatherAPI
 {
     public interface IOpenWeatherAPIclient
     {
-        Task<ForecastEntity> GetForecastForName(string name);
+        Task<List<Forecast>> GetForecastForCoordinates(decimal latitude, decimal longitude);
         Task<WeatherApp.Core.Weather> GetWeatherForName(string name);
     }
 }

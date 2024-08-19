@@ -9,7 +9,7 @@ using WeatherApp.Infrastructure.OpenWeatherAPI.Entity;
 
 namespace WeatherApp.Infrastructure.OpenWeatherAPI
 {
-    public class OpenWeatherAPIclient : IOpenWeatherAPIclient
+    public class OpenWeatherAPIclient : IOpenWeatherAPIclient // cods error
     {
         private static HttpClient sharedClient = new();
         private readonly IBildUrl BildUrl;
@@ -21,7 +21,7 @@ namespace WeatherApp.Infrastructure.OpenWeatherAPI
         {
             var jsonResponse = await GetJsonResponse(BildUrl.GetCurrentWeatherForName(name));
 
-            var weather = JsonSerializer.Deserialize<WeatherEntity>(jsonResponse) ?? throw new Exception("Problem bro");
+            var weather = JsonSerializer.Deserialize<WeatherEntity>(jsonResponse) ?? throw new Exception("Problem deserialize");
             var result = Core.Weather.Create
                 (weather.coord.lat, weather.coord.lon, weather.weather[0].main, weather.weather[0].description,
                 weather.main.temp, weather.main.feels_like, weather.main.pressure, weather.wind.speed, weather.wind.deg,
@@ -29,11 +29,11 @@ namespace WeatherApp.Infrastructure.OpenWeatherAPI
                 );
             return result;
         }
-        public async Task<List<Forecast>> GetForecastForName(string name)
+        public async Task<List<Forecast>> GetForecastForCoordinates(decimal latitude, decimal longitude)
         {
-            var jsonResponse = await GetJsonResponse(BildUrl.GetForecastForName(name));
+            var jsonResponse = await GetJsonResponse(BildUrl.GetForecastForCoordinates(latitude, longitude));
 
-            var forecast = JsonSerializer.Deserialize<ForecastEntity>(jsonResponse) ?? throw new Exception("Problem bro");
+            var forecast = JsonSerializer.Deserialize<ForecastEntity>(jsonResponse) ?? throw new Exception("Problem deserialize");
             List<Forecast> result = new();
             foreach (var item in forecast.list)
             {
@@ -41,7 +41,7 @@ namespace WeatherApp.Infrastructure.OpenWeatherAPI
                     forecast.city.name, forecast.city.coord.lat, forecast.city.coord.lon, forecast.city.country));
             }
 
-            return forecast;
+            return result;
         }
         private async Task<string> GetJsonResponse(string URL)
         {

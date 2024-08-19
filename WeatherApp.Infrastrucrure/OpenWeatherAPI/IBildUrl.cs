@@ -3,6 +3,6 @@
     public interface IBildUrl
     {
         string GetCurrentWeatherForName(string name);
-        string GetForecastForName(string name);
+        string GetForecastForCoordinates(decimal latitude, decimal longitude);
     }
 }
