@@ -63,7 +63,7 @@ namespace WeatherApp.Core
                                  dateTime,name, latitude, longitude,country);
             return result;
         }
-        private static string ConvertDegToСardinalDirections(double deg)
+        private static string ConvertDegToСardinalDirections(double deg) // DRY
         {
             /*
              * 22.5 - 67.5 - north-east 

@@ -27,12 +27,11 @@ namespace WeatherApp.DataAccess.Repositories
                 Longitude = location.Longitude,
                 UserId = location.UserId
             };
-            //await _dbContext.Locations.AddAsync(locationEntity);
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == userId) ?? throw new Exception();
             user.Locations.Add(locationEntity);
             await _dbContext.SaveChangesAsync();
         }
-        public async Task<Location> GetById(int id)
+        public async Task<Location> GetByIdLocations(int id)
         {
             var locationEntity = await _dbContext.Locations
                 .FirstOrDefaultAsync(x => x.Id == id) ?? throw new Exception();
@@ -41,12 +40,23 @@ namespace WeatherApp.DataAccess.Repositories
                                          locationEntity.Latitude, locationEntity.Longitude);
             return result;
         }
-        public async Task Delete(int idLocation, int idUser)
+        public async Task Delete(int idLocation, int userId)
         {
-            var user = await _dbContext.Users.Include(l => l.Locations).FirstOrDefaultAsync(x => x.Id == idUser) ?? throw new Exception();
+            var user = await _dbContext.Users.Include(l => l.Locations).FirstOrDefaultAsync(x => x.Id == userId) ?? throw new Exception();
             var location = user.Locations.FirstOrDefault(x => x.Id == idLocation) ?? throw new Exception("Location not faund");
             user.Locations.Remove(location);
             await _dbContext.SaveChangesAsync();
+        }
+        public async Task<List<Location>> GetByUserId(int userId)
+        {
+            var user = await _dbContext.Users.Include(l => l.Locations).FirstOrDefaultAsync(x => x.Id == userId) ?? throw new Exception();
+            var locationsEntity = user.Locations;
+            List<Location> locations = new();
+            foreach (var item in locationsEntity)
+            {
+                locations.Add(Location.Create(item.Name, item.UserId, item.Latitude, item.Longitude, item.Id));
+            }
+            return locations;
         }
     }
 }
