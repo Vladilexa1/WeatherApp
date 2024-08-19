@@ -49,5 +49,10 @@ namespace WeatherApp.Application
         {
             await _locationRepository.Delete(idLocation, idUser);
         }
+
+        public async Task<List<Location>> GetLocation(int userId)
+        {
+            return await _locationRepository.GetByUserId(userId);
+        }
     }
 }
