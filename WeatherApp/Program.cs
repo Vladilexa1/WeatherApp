@@ -34,6 +34,7 @@ namespace WeatherApp
 
             builder.Services.Configure<JWTOptions>(configuration.GetSection("JWTOptions"));
             builder.Services.Configure<BuildUrlOptions>(configuration.GetSection("BuildUrlOptions"));
+            
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IJWTProvider, JWTProvider>();
             builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
@@ -42,6 +43,7 @@ namespace WeatherApp
             builder.Services.AddScoped<IOpenWeatherAPIclient, OpenWeatherAPIclient>();
             builder.Services.AddScoped<ILocationRepository, LocationRepository>();
             builder.Services.AddScoped<IWeatherService, WeatherService>();
+            
             ApiExtensions.AddApiAuthentication(builder, configuration.GetSection("JWTOptions"));
             
             var app = builder.Build();
