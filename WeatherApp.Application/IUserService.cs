@@ -8,7 +8,6 @@ namespace WeatherApp.Application
         Task<string> Login(string email, string password);
         Task Register(string email, string password);
         Task AddLocation(Location location, int userId);
-        Task<List<Location>> GetLocation(int userId);
         Task DeleteLocation(int idLocation, int idUser);
     }
 }

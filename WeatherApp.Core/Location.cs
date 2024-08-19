@@ -2,9 +2,8 @@
 {
     public class Location
     {
-        private Location(string name, int userId, decimal latitude, decimal lonngitude, int id)
+        private Location(string name, int userId, decimal latitude, decimal lonngitude)
         {
-            Id = id;
             Name = name;
             UserId = userId;
             Latitude = latitude;
@@ -16,9 +15,9 @@
         public decimal Latitude { get; }
         public decimal Longitude { get; }
 
-        public static Location Create(string name, int userId, decimal latitude, decimal lonngitude, int id = 0)// TODO: validation
+        public static Location Create(string name, int userId, decimal latitude, decimal lonngitude)// TODO: validation
         {
-            Location location = new Location(name, userId, latitude, lonngitude, id);
+            Location location = new Location(name, userId, latitude, lonngitude);
             return location;
         }
 

@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using WeatherApp.Core;
 using WeatherApp.Infrastructure.OpenWeatherAPI.Entity;
-using WeatherApp.Infrastructure.OpenWeatherAPI.Exceptions;
 
 namespace WeatherApp.Infrastructure.OpenWeatherAPI
 {
-    public class OpenWeatherAPIclient : IOpenWeatherAPIclient
+    public class OpenWeatherAPIclient : IOpenWeatherAPIclient // cods error
     {
         private static HttpClient sharedClient = new();
         private readonly IBildUrl BildUrl;
@@ -19,9 +17,10 @@ namespace WeatherApp.Infrastructure.OpenWeatherAPI
         {
             BildUrl = bildUrl;
         }
-        public async Task<Core.Weather> GetWeatherForName(string name)
+        public async Task<Core.Weather> GetWeatherForName(string name) // TODO: проверить на налл, ...
         {
             var jsonResponse = await GetJsonResponse(BildUrl.GetCurrentWeatherForName(name));
+
             var weather = JsonSerializer.Deserialize<WeatherEntity>(jsonResponse) ?? throw new Exception("Problem deserialize");
             var result = Core.Weather.Create
                 (weather.coord.lat, weather.coord.lon, weather.weather[0].main, weather.weather[0].description,
@@ -33,7 +32,8 @@ namespace WeatherApp.Infrastructure.OpenWeatherAPI
         public async Task<List<Forecast>> GetForecastForCoordinates(decimal latitude, decimal longitude)
         {
             var jsonResponse = await GetJsonResponse(BildUrl.GetForecastForCoordinates(latitude, longitude));
-            var forecast = JsonSerializer.Deserialize<ForecastEntity>(jsonResponse) ?? throw new Exception("Problem deserialize"); ;
+
+            var forecast = JsonSerializer.Deserialize<ForecastEntity>(jsonResponse) ?? throw new Exception("Problem deserialize");
             List<Forecast> result = new();
             foreach (var item in forecast.list)
             {
@@ -43,25 +43,9 @@ namespace WeatherApp.Infrastructure.OpenWeatherAPI
 
             return result;
         }
-        private void CheckException(HttpStatusCode statusCode)
-        {
-            if (((int)statusCode) == 404)
-            {
-                throw new CityNotFaundException("City not faund");
-            }
-            if (((int)statusCode) == 400)
-            {
-                throw new WrongCoordinatesException("Wrong coordinates");
-            }
-            if (((int)statusCode) != 200)
-            {
-                throw new ServiceNotAvailableException("Service not available, try later");
-            }
-        }
         private async Task<string> GetJsonResponse(string URL)
         {
             var response = sharedClient.GetAsync(URL).Result;
-            CheckException(response.StatusCode);
             var jsonResponse = await response.Content.ReadAsStringAsync();
             return jsonResponse;
         }

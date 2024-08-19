@@ -14,15 +14,8 @@ namespace WeatherApp.API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Register(UserRequest userRequest, IUserService userServices)
         {
-            if (userRequest.repeatPassword == userRequest.password)
-            {
-                await userServices.Register(userRequest.login, userRequest.password);
-                return Ok();
-            }
-            else
-            {
-                return StatusCode(404);
-            }
+            await userServices.Register(userRequest.login, userRequest.password);
+            return Ok();
         }        
         [HttpPost("login")]
         public async Task<ActionResult> Login(
@@ -45,17 +38,7 @@ namespace WeatherApp.API.Controllers
 
             var location = Location.Create(locationContract.city, userId, locationContract.Latitue, locationContract.Longitude);
             await userServices.AddLocation(location, userId);
-            return StatusCode(201);
-        }
-        [Authorize]
-        [HttpGet("Location")]
-        public async Task<ActionResult> GetAllLocation(IUserService userServices)
-        {
-            var userIdString = User.Claims.FirstOrDefault(c => c.Type == "Id")?.Value;// DRY
-            int.TryParse(userIdString, out int userId);
-
-            var response = await userServices.GetLocation(userId);
-            return Ok(response);
+            return Ok();
         }
         [Authorize]
         [HttpDelete("DeleteLocation")]

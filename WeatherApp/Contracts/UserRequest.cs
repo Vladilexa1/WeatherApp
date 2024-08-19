@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WeatherApp.API.Contracts
+﻿namespace WeatherApp.API.Contracts
 {
-    public record UserRequest([Required]string login, [Required]string password, [Required] string repeatPassword) { }
+    public record UserRequest(string login, string password) { }
 }

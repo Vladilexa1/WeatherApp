@@ -41,7 +41,6 @@ namespace WeatherApp
             builder.Services.AddScoped<IBildUrl, BildUrl>();
             builder.Services.AddScoped<IOpenWeatherAPIclient, OpenWeatherAPIclient>();
             builder.Services.AddScoped<ILocationRepository, LocationRepository>();
-            builder.Services.AddScoped<IWeatherService, WeatherService>();
             ApiExtensions.AddApiAuthentication(builder, configuration.GetSection("JWTOptions"));
             
             var app = builder.Build();

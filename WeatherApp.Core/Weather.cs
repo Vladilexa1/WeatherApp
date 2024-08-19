@@ -48,7 +48,7 @@ namespace WeatherApp.Core
                 description, temp, feelsLike, pressure, windSpeed, ConvertDegToСardinalDirections(deg), country, sityName);
             return result;
         }
-        private static string ConvertDegToСardinalDirections(double deg) // DDRY
+        private static string ConvertDegToСardinalDirections(double deg)
         {
             /*
              * 22.5 - 67.5 - north-east 
