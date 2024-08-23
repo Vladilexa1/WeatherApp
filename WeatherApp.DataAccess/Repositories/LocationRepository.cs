@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeatherApp.Core;
 using WeatherApp.DataAccess.Entitys;
+using WeatherApp.DataAccess.Exceptions;
 
 namespace WeatherApp.DataAccess.Repositories
 {
@@ -34,16 +35,16 @@ namespace WeatherApp.DataAccess.Repositories
         public async Task<Location> GetByIdLocations(int id)
         {
             var locationEntity = await _dbContext.Locations
-                .FirstOrDefaultAsync(x => x.Id == id) ?? throw new Exception();
+                .FirstOrDefaultAsync(x => x.Id == id) ?? throw new LocationNotFaundException("Location not faund");
 
             var result = Location.Create(locationEntity.Name, locationEntity.UserId,
-                                         locationEntity.Latitude, locationEntity.Longitude);
+                                         locationEntity.Latitude, locationEntity.Longitude, locationEntity.Id);
             return result;
         }
         public async Task Delete(int idLocation, int userId)
         {
-            var user = await _dbContext.Users.Include(l => l.Locations).FirstOrDefaultAsync(x => x.Id == userId) ?? throw new Exception();
-            var location = user.Locations.FirstOrDefault(x => x.Id == idLocation) ?? throw new Exception("Location not faund");
+            var user = await _dbContext.Users.Include(l => l.Locations).FirstOrDefaultAsync(x => x.Id == userId);
+            var location = user.Locations.FirstOrDefault(x => x.Id == idLocation) ?? throw new LocationNotFaundException("Location not faund");
             user.Locations.Remove(location);
             await _dbContext.SaveChangesAsync();
         }
