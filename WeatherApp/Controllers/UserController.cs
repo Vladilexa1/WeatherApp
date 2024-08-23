@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WeatherApp.API.Contracts;
+using WeatherApp.API.Extensions;
 using WeatherApp.Application;
 using WeatherApp.Core;
 using WeatherApp.Infrastructure.OpenWeatherAPI;
@@ -9,8 +10,16 @@ namespace WeatherApp.API.Controllers
 {
     [ApiController]
     [Route("/")]
+#pragma warning disable CS1591 // Отсутствует комментарий XML для открытого видимого типа или члена
     public class UserController : Controller
     {
+        public const string AUTH_COOKY_NAME = ApiExtensions.AUTH_COOKY_NAME;
+        /// <summary>
+        /// Регистрация
+        /// </summary>
+        /// <param name="userRequest"></param>
+        /// <param name="userServices"></param>
+        /// <returns></returns>
         [HttpPost("register")]
         public async Task<ActionResult> Register(UserRegisterContract userRequest, IUserService userServices)
         {
@@ -29,8 +38,16 @@ namespace WeatherApp.API.Controllers
         {
             var token = await userServices.Login(userResponse.login, userResponse.password);
             
-            HttpContext.Response.Cookies.Append("test-cooky", token); // перенести имя в константу
+            HttpContext.Response.Cookies.Append(AUTH_COOKY_NAME, token);
 
+            return Ok();
+        }
+        [Authorize]
+        [HttpPost("logout")]
+        public ActionResult Logout()
+        {
+            var cookie = HttpContext.Response.Cookies;
+            cookie.Delete(AUTH_COOKY_NAME);
             return Ok();
         }
         [Authorize]

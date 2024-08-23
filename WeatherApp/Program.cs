@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 using WeatherApp.API.Endpoints;
 using WeatherApp.API.Extensions;
 using WeatherApp.Application;
@@ -24,7 +26,25 @@ namespace WeatherApp
 
             var configuration = builder.Configuration;
             
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "WeatherAPI",
+                    Description = "Клиент с регистрацией для просмотра прогноза погоды в добавленных городах",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Vladyslav",
+                        Email = "vlad.slip4enko2012@gmail.com",
+                        Url = new Uri("https://github.com/Vladilexa1")
+                    }
+                });
+                var basePath = AppContext.BaseDirectory;
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(basePath, xmlFilename);
+                options.IncludeXmlComments(xmlPath);
+            });
 
             builder.Services.AddDbContext<WeatherAppDbContext>(options =>
             {
