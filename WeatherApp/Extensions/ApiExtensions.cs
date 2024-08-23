@@ -8,6 +8,7 @@ namespace WeatherApp.API.Extensions
 {
     public static class ApiExtensions 
     {
+        public const string AUTH_COOKY_NAME = "AuthCooky";
         public static void AddApiAuthentication(WebApplicationBuilder builder, IConfigurationSection configurationSection)
         {
             JWTOptions jwtOptions = configurationSection.Get<JWTOptions>()?? throw new Exception("Problem configuration");
@@ -33,7 +34,7 @@ namespace WeatherApp.API.Extensions
                     {
                         OnMessageReceived = context =>
                         {
-                            context.Token = context.Request.Cookies["test-cooky"]; // global sdelay
+                            context.Token = context.Request.Cookies[AUTH_COOKY_NAME];
                             return Task.CompletedTask;
                         }
                     };
