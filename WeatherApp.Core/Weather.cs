@@ -12,11 +12,11 @@ namespace WeatherApp.Core
         private Weather(decimal latitude, decimal longitude, 
             string currentWeather, string description, decimal temp, 
             decimal feelsLike, decimal pressure, decimal windSpeed, 
-            string deg, string country, string sityName)
+            string deg, string country, string sityName, string icon)
         {
             Latitude = latitude;
             Longitude = longitude;
-            CurrentWeath = currentWeather;
+            CurrentWeather = currentWeather;
             Description = description;
             Temp = temp;
             FeelsLike = feelsLike;
@@ -25,11 +25,11 @@ namespace WeatherApp.Core
             Deg = deg;
             Country = country;
             SityName = sityName;
+            Icon = icon;
         }
-
         public decimal Latitude { get; }
         public decimal Longitude { get; }
-        public string CurrentWeath { get; } = string.Empty;
+        public string CurrentWeather { get; } = string.Empty;
         public string Description { get; } = string.Empty;
         public decimal Temp { get; }
         public decimal FeelsLike { get; }
@@ -38,14 +38,15 @@ namespace WeatherApp.Core
         public string Deg { get; } = string.Empty;
         public string Country { get; } = string.Empty;
         public string SityName { get; } = string.Empty;
+        public string Icon { get; } = string.Empty;
 
         public static Weather Create(decimal latitude, decimal longitude,
             string currentWeather, string description, decimal temp,
             decimal feelsLike, decimal pressure, decimal windSpeed,
-            double deg, string country, string sityName)
+            double deg, string country, string sityName, string icon)
         {
             var result = new Weather(latitude, longitude, currentWeather, 
-                description, temp, feelsLike, pressure, windSpeed, ConvertDegToСardinalDirections(deg), country, sityName);
+                description, temp, feelsLike, pressure, windSpeed, ConvertDegToСardinalDirections(deg), country, sityName, icon);
             return result;
         }
         private static string ConvertDegToСardinalDirections(double deg) // DDRY
