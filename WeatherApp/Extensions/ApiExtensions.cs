@@ -6,7 +6,8 @@ using WeatherApp.Infrastructure.JWT;
 
 namespace WeatherApp.API.Extensions
 {
-    public static class ApiExtensions 
+#pragma warning disable CS1591 // Отсутствует комментарий XML для открытого видимого типа или члена
+    public static class ApiExtensions
     {
         public const string AUTH_COOKY_NAME = "AuthCooky";
         public static void AddApiAuthentication(WebApplicationBuilder builder, IConfigurationSection configurationSection)

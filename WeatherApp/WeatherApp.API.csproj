@@ -11,17 +11,18 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
 		
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.7.0" />
+    <PackageReference Include="RestSharp" Version="112.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.7.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +30,7 @@
     <ProjectReference Include="..\WeatherApp.Core\WeatherApp.Core.csproj" />
     <ProjectReference Include="..\WeatherApp.DataAccess\WeatherApp.DataAccess.csproj" />
     <ProjectReference Include="..\WeatherApp.Infrastrucrure\WeatherApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\WeatherApp.TelegramBot\WeatherApp.TelegramBot.csproj" />
   </ItemGroup>
 
 </Project>
