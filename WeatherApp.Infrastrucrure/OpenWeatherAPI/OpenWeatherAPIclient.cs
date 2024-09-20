@@ -26,7 +26,7 @@ namespace WeatherApp.Infrastructure.OpenWeatherAPI
             var result = Core.Weather.Create
                 (weather.coord.lat, weather.coord.lon, weather.weather[0].main, weather.weather[0].description,
                 weather.main.temp, weather.main.feels_like, weather.main.pressure, weather.wind.speed, weather.wind.deg,
-                weather.sys.country, weather.name
+                weather.sys.country, weather.name, weather.weather[0].icon
                 );
             return result;
         }
