@@ -13,9 +13,10 @@ using WeatherApp.DataAccess.Repositories;
 using WeatherApp.Infrastructure;
 using WeatherApp.Infrastructure.JWT;
 using WeatherApp.Infrastructure.OpenWeatherAPI;
-
+using WeatherApp.TelegramBot;
 namespace WeatherApp
 {
+#pragma warning disable CS1591 // Отсутствует комментарий XML для открытого видимого типа или члена
     public class Program
     {
         public static void Main(string[] args)
@@ -51,10 +52,14 @@ namespace WeatherApp
                 options.UseNpgsql(configuration.GetConnectionString(nameof(WeatherAppDbContext)));
             });
 
-
+            builder.Services.ConfigureApplicationCookie(options => // Перенаправление не авторизованых пользователей
+            {
+                options.LoginPath = "/login";
+            });
             builder.Services.Configure<JWTOptions>(configuration.GetSection("JWTOptions"));
             builder.Services.Configure<BuildUrlOptions>(configuration.GetSection("BuildUrlOptions"));
-            
+            builder.Services.AddHostedService<TelegrammBotBackgroundService>(); // tetegram bot
+            builder.Services.Configure<TelegramOptions>(builder.Configuration.GetSection(TelegramOptions.Telegram));
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IJWTProvider, JWTProvider>();
             builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
